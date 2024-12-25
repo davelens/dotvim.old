@@ -5,6 +5,8 @@ set -e
 
 source helpers.sh
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 [ ! -d ${HOME}/.local/bin ] && mkdir -p ${HOME}/.local/bin
 
 # Check if ~/.local/bin is in $PATH so we can install getnf if necessary.
@@ -28,8 +30,8 @@ echo "$(check) getnf is installed"
 echo "$(check) Nerd fonts installed"
 
 [ ! -d ${HOME}/.config ] && mkdir ${HOME}/.config
-[ ! -d ${HOME}/.config/nvim ] && ln -s ${HOME}/.dotvim/config/nvim ${HOME}/.config/nvim
-[ ! -d ${HOME}/.vim ] && ln -s ${HOME}/.dotvim/vim ${HOME}/.vim
-[ ! -f ${HOME}/.vimrc ] && ln -s ${HOME}/.dotvim/vimrc ${HOME}/.vimrc
+[ ! -L ${HOME}/.config/nvim ] && ln -s ${SCRIPT_DIR}/config/nvim ${HOME}/.config/nvim
+[ ! -L ${HOME}/.vim ] && ln -s ${SCRIPT_DIR}/vim ${HOME}/.vim
+[ ! -L ${HOME}/.vimrc ] && ln -s ${SCRIPT_DIR}/vimrc ${HOME}/.vimrc
 
 echo "$(check) vimrc successfully installed"
